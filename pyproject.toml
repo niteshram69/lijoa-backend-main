@@ -1,0 +1,35 @@
+[tool.poetry]
+name = "lijoa-backend"
+version = "0.1.0"
+description = "LIJOA backend (MVP scaffold)"
+authors = ["Coders Boutique"]
+readme = "README.md"
+packages = [{ include = "app" }]
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.115.0"
+uvicorn = {extras = ["standard"], version = "^0.30.0"}
+psycopg2-binary = "^2.9.9"
+SQLAlchemy = "^2.0.31"
+python-dotenv = "^1.0.1"
+alembic = "^1.16.5"
+pydantic = "^2.11.7"
+pydantic-settings = "^2.10.1"
+redis = "^6.4.0"
+fastapi-limiter = "^0.1.6"
+email-validator = "^2.3.0"
+cryptography = "^45.0.7"
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.2"
+httpx = "^0.27.0"
+pytest-asyncio = "^0.23.8"
+[tool.pytest.ini_options]
+addopts = "-q"
+pythonpath = ["."]
+pydantic = "^2.8.0"
+pydantic-settings = "^2.4.0"
+alembic = "^1.13.2"
+email-validator = "^2.1.0.post1" # for Pydantic's EmailStr
+cryptography = "^43.0.0" # encrypt API key secrets at rest
+redis = "^5.0.7" # redis client
+fastapi-limiter = "^0.1.6" # rate limiting

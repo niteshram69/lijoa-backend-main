@@ -1,0 +1,39 @@
+version: "3.9"
+
+services:
+  api:
+    build: .
+    container_name: lijoa_api
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+    command: >
+      sh -c "poetry run uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+    volumes:
+      - .:/code
+      - /code/.venv
+
+  db:
+    image: postgres:16
+    container_name: lijoa_db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-lijoa}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-lijoa}
+      POSTGRES_DB: ${POSTGRES_DB:-lijoa}
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    container_name: lijoa_redis
+    ports:
+      - "6379:6379"
+
+volumes:
+  pgdata:
